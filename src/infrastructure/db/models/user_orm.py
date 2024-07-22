@@ -17,3 +17,4 @@ class UserOrm(Base):
     canteen_id: Mapped[int] = mapped_column(ForeignKey("canteens.canteen_id", ondelete="CASCADE"))
     updated_at: Mapped[updated_at]
     created_at: Mapped[created_at]
+    status: Mapped[str] = mapped_column(default="active")

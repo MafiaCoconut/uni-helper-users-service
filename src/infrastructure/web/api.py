@@ -9,11 +9,13 @@ router = APIRouter()
 async def add_user(user: User):
     user = User(**user.model_dump())
     await users_service.save_user(user=user)
-    return {"message": "User added successfully"}
+    return {"text": "User added successfully"}
 
 
 @router.put('/users/{user_id}')
-async def update_user(user_id: int, new_mailing_time: str = None, new_language: str = None, new_canteen_id: int = None):
+async def update_user(user_id: int, new_mailing_time: str = None,
+                      new_language: str = None, new_canteen_id: int = None,
+                      status: str = None):
     result = ""
     if new_mailing_time is not None:
         await users_service.update_mailing_time(user_id=user_id, mailing_time=new_mailing_time)
@@ -27,7 +29,17 @@ async def update_user(user_id: int, new_mailing_time: str = None, new_language: 
         await users_service.update_canteen_id(user_id=user_id, canteen_id=new_canteen_id)
         result += "Canteen_id updated successfully\n"
 
+    if status is not None:
+        await users_service.update_status(user_id=user_id, status=status)
+        result += "Status updated successfully\n"
+
     return {"text": result}
+
+
+@router.get('/users/all')
+async def get_all_users():
+    users = await users_service.get_all_users()
+    return users
 
 
 @router.get('/users/{user_id}')
@@ -36,4 +48,16 @@ async def get_user_by_id(user_id: int):
     return user
 
 
+
+
+@router.put('/users/deactivate/{user_id}')
+async def deactivate_user(user_id: int):
+    await users_service.deactivate_user(user_id=user_id)
+    return {"text": "User deactivated successfully"}
+
+
+@router.put('/users/reactivate/{user_id}')
+async def reactivate_user(user_id: int):
+    await users_service.update_status(user_id=user_id, status='active')
+    return {"text": "User reactivated successfully"}
 

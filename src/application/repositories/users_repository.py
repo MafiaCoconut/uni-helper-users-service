@@ -52,15 +52,29 @@ class UsersRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    async def update_mailing_time(user_id: int | str, mailing_time: str):
+    async def update_mailing_time(user_id: int, mailing_time: str):
         pass
 
     @staticmethod
     @abstractmethod
-    async def update_language(user_id: int | str, language: str):
+    async def update_language(user_id: int, language: str):
         pass
 
     @staticmethod
     @abstractmethod
-    async def update_canteen_id(user_id: int | str, canteen_id: int):
+    async def update_canteen_id(user_id: int, canteen_id: int):
         pass
+
+    @staticmethod
+    @abstractmethod
+    async def update_status(user_id: int, status: str):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    async def deactivate_user(user_id: int):
+        pass
+
+
+
+

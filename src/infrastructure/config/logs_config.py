@@ -74,7 +74,7 @@ def log_decorator(func, log_level=logging.DEBUG):
         result = await func(*args, **kwargs)
 
         # Запись результата выполнения функции
-        system_logger.log(level=log_level, msg=f"Result: {result}")
+        # system_logger.log(level=log_level, msg=f"Result: {result}")
 
         return result
 
