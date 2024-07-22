@@ -50,3 +50,17 @@ class UsersRepository(ABC):
     def delete_all():
         pass
 
+    @staticmethod
+    @abstractmethod
+    def update_mailing_time(user_id: int | str, mailing_time: str):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def update_language(user_id: int | str, language: str):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def update_canteen_id(user_id: int | str, canteen_id: int):
+        pass

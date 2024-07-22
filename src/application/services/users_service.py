@@ -40,3 +40,13 @@ class UsersService:
     def delete_all_users(self):
         self.users_repository.delete_all()
 
+    def update_mailing_time(self, user_id: int | str, mailing_time: str):
+        self.users_repository.update_mailing_time(user_id=user_id, mailing_time=mailing_time)
+
+    def update_language(self, user_id: int | str, language: str):
+        self.users_repository.update_language(user_id=user_id, language=language)
+
+    def update_canteen_id(self, user_id: int | str, canteen_id: int):
+        self.users_repository.update_canteen_id(user_id=user_id, canteen_id=canteen_id)
+
+
