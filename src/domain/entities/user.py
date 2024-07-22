@@ -1,13 +1,13 @@
-from dataclasses import dataclass, field
+# from dataclasses import dataclass, field
 from datetime import datetime
+from pydantic import BaseModel
 
 
-@dataclass
-class User:
-    user_id: int = field(default=None)
-    username: str = field(default=None)
-    mailing_time: str = field(default=None)
-    language: str = field(default=None)
-    canteen_id: int = field(default=None)
-    updated_at: datetime = field(default=None)
-    created_at: datetime = field(default=None)
+class User(BaseModel):
+    user_id: int
+    username: str = '-'
+    mailing_time: str = '-'
+    language: str = '-'
+    canteen_id: int = 0
+    created_at: datetime
+    updated_at: datetime

@@ -40,3 +40,13 @@ class UsersRepository(ABC):
     def get_canteen_id_by_user_id(user_id: int) -> User:
         pass
 
+    @staticmethod
+    @abstractmethod
+    def delete_user(user_id: int):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def delete_all():
+        pass
+
