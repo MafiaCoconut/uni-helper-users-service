@@ -5,7 +5,7 @@ from domain.entities.user import User
 from infrastructure.db.base import async_session_factory
 from infrastructure.db.models.user_orm import UserOrm
 from infrastructure.config.logs_config import log_decorator
-from sqlalchemy import select, delete, update
+from sqlalchemy import select, delete, update, asc
 
 
 class UsersRepositoryImpl(UsersRepository):
@@ -42,7 +42,7 @@ class UsersRepositoryImpl(UsersRepository):
     @log_decorator
     async def get_users_all() -> list[User]:
         async with async_session_factory() as session:
-            query = await session.execute(select(UserOrm))
+            query = await session.execute(select(UserOrm).order_by(asc(UserOrm.created_at)))
             res = query.scalars().all()
             return res
             # return [User(

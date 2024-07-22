@@ -10,7 +10,6 @@ from infrastructure.db.models.user_orm import UserOrm
 @asynccontextmanager
 async def lifespan(app):
     logs_config.config()
-    print('11111111')
     yield
 
 app = FastAPI(lifespan=lifespan)
@@ -19,5 +18,4 @@ app.include_router(router)
 
 
 if __name__ == '__main__':
-    # pass
     Base.metadata.create_all(sync_engine)
