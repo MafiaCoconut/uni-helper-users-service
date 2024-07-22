@@ -1,4 +1,4 @@
-from src.domain.entities.user import User
+from domain.entities.user import User
 
 
 class UsersValidator:

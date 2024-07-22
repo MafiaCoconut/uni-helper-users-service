@@ -1,17 +1,15 @@
 from icecream import ic
 
-from src.application.repositories.users_repository import UsersRepository
-from src.application.validators.users_validator import UsersValidator
-from src.domain.entities.user import User
+from application.repositories.users_repository import UsersRepository
+from application.validators.users_validator import UsersValidator
+from domain.entities.user import User
 
 
 class UsersService:
     def __init__(self,
                  users_repository: UsersRepository,
-                 users_validator: UsersValidator,
                  ):
         self.users_repository = users_repository
-        self.users_validator = users_validator
 
     def save_user(self, user: User):
         self.users_repository.save(user=user)

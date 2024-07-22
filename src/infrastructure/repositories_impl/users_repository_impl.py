@@ -1,15 +1,16 @@
 from abc import abstractmethod, ABC
 
-from src.application.repositories.users_repository import UsersRepository
-from src.domain.entities.user import User
-from src.infrastructure.db.base import async_session_factory
-from src.infrastructure.db.models.user_orm import UserOrm
-
+from application.repositories.users_repository import UsersRepository
+from domain.entities.user import User
+from infrastructure.db.base import async_session_factory
+from infrastructure.db.models.user_orm import UserOrm
+from infrastructure.config.logs_config import log_decorator
 from sqlalchemy import select, delete
 
 
 class UsersRepositoryImpl(UsersRepository):
     @staticmethod
+    @log_decorator
     def save(user: User) -> None:
         with async_session_factory() as session:
             user_orm = UserOrm(
@@ -23,6 +24,7 @@ class UsersRepositoryImpl(UsersRepository):
             session.commit()
 
     @staticmethod
+    @log_decorator
     def save_many(users: list[User]) -> None:
         with async_session_factory() as session:
             for user in users:
@@ -37,6 +39,7 @@ class UsersRepositoryImpl(UsersRepository):
                 session.commit()
 
     @staticmethod
+    @log_decorator
     def get_users_all() -> list[User]:
         with async_session_factory() as session:
             query = session.execute(select(UserOrm))
@@ -51,6 +54,7 @@ class UsersRepositoryImpl(UsersRepository):
             ) for user in res]
 
     @staticmethod
+    @log_decorator
     def get_user_by_user_id(user_id: int) -> User:
         with async_session_factory() as session:
             query = select(UserOrm).filter(UserOrm.user_id == int(user_id))
@@ -65,6 +69,7 @@ class UsersRepositoryImpl(UsersRepository):
             )
 
     @staticmethod
+    @log_decorator
     def get_mailing_time_by_user_id(user_id: int | str) -> str:
         with async_session_factory() as session:
             query = select(UserOrm.mailing_time).where(UserOrm.user_id == str(user_id))
@@ -72,6 +77,7 @@ class UsersRepositoryImpl(UsersRepository):
             return session.scalars().all()
 
     @staticmethod
+    @log_decorator
     def get_language_by_user_id(user_id: int | str) -> str:
         with async_session_factory() as session:
             query = select(UserOrm.language).where(UserOrm.user_id == str(user_id))
@@ -79,6 +85,7 @@ class UsersRepositoryImpl(UsersRepository):
             return session.scalars().all()
 
     @staticmethod
+    @log_decorator
     def get_canteen_id_by_user_id(user_id: int | str) -> User:
         with async_session_factory() as session:
             query = select(UserOrm.canteen_id).where(UserOrm.user_id == str(user_id))
@@ -86,6 +93,7 @@ class UsersRepositoryImpl(UsersRepository):
             return session.scalars().all()
 
     @staticmethod
+    @log_decorator
     def delete_user(user_id: int | str):
         with async_session_factory() as session:
             query = delete(UserOrm).where(UserOrm.user_id == user_id)
@@ -93,6 +101,7 @@ class UsersRepositoryImpl(UsersRepository):
             session.commit()
 
     @staticmethod
+    @log_decorator
     def delete_all():
         with async_session_factory() as session:
             query = delete(UserOrm)

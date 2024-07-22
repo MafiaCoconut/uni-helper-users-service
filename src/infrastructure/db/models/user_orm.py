@@ -2,8 +2,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import text, ForeignKey
 
 from datetime import datetime
-from src.infrastructure.db.base import Base
-from src.infrastructure.db.models.orm_template_columns import intpk, created_at, updated_at
+from infrastructure.db.base import Base
+from infrastructure.db.models.orm_template_columns import intpk, created_at, updated_at
 
 
 class UserOrm(Base):
