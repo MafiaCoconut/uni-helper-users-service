@@ -16,5 +16,5 @@ async def lifespan(app):
 
 
 if __name__ == '__main__':
-    pass
-    # Base.metadata.create_all(sync_engine)
+    # pass
+    Base.metadata.create_all(sync_engine)
