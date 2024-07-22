@@ -6,13 +6,13 @@ from src.infrastructure.db.base import Base
 from src.infrastructure.db.models.orm_template_columns import intpk, created_at, updated_at
 
 
-class UsersOrm(Base):
+class UserOrm(Base):
     __tablename__ = 'users'
 
     user_id: Mapped[intpk]
     username: Mapped[str]
-    mailing_time: Mapped[datetime]
+    mailing_time: Mapped[str]
     language: Mapped[str]
-    canteen_id: Mapped[int] == mapped_column(ForeignKey("canteens.canteen_id"))
+    canteen_id: Mapped[int] = mapped_column(ForeignKey("canteens.canteen_id"))
     updated_at: Mapped[updated_at]
     created_at: Mapped[created_at]
