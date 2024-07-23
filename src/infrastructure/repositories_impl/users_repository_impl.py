@@ -80,24 +80,32 @@ class UsersRepositoryImpl(UsersRepository):
     async def get_mailing_time_by_user_id(user_id: int) -> str:
         async with async_session_factory() as session:
             query = select(UserOrm.mailing_time).where(UserOrm.user_id == user_id)
-            await session.execute(query)
-            return session.scalars().first()
+            result = await session.execute(query)
+            return result.scalars().first()
 
     @staticmethod
     @log_decorator
     async def get_language_by_user_id(user_id: int) -> str:
         async with async_session_factory() as session:
             query = select(UserOrm.language).where(UserOrm.user_id == user_id)
-            await session.execute(query)
-            return session.scalars().first()
+            result = await session.execute(query)
+            return result.scalars().first()
 
     @staticmethod
     @log_decorator
-    async def get_canteen_id_by_user_id(user_id: int) -> User:
+    async def get_canteen_id_by_user_id(user_id: int) -> int:
         async with async_session_factory() as session:
             query = select(UserOrm.canteen_id).where(UserOrm.user_id == user_id)
-            await session.execute(query)
-            return session.scalars().first()
+            result = await session.execute(query)
+            return result.scalars().first()
+
+    @staticmethod
+    @log_decorator
+    async def get_status_by_user_id(user_id: int) -> str:
+        async with async_session_factory() as session:
+            query = select(UserOrm.status).where(UserOrm.user_id == user_id)
+            result = await session.execute(query)
+            return result.scalars().first()
 
     @staticmethod
     @log_decorator

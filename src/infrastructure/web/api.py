@@ -36,6 +36,18 @@ async def update_user(user_id: int, new_mailing_time: str = None,
     return {"text": result}
 
 
+@router.put('/users/deactivate/{user_id}')
+async def deactivate_user(user_id: int):
+    await users_service.deactivate_user(user_id=user_id)
+    return {"text": "User deactivated successfully"}
+
+
+@router.put('/users/reactivate/{user_id}')
+async def reactivate_user(user_id: int):
+    await users_service.update_status(user_id=user_id, status='active')
+    return {"text": "User reactivated successfully"}
+
+
 @router.get('/users/all')
 async def get_all_users():
     users = await users_service.get_all_users()
@@ -48,16 +60,18 @@ async def get_user_by_id(user_id: int):
     return user
 
 
+@router.get('/users/mailing_time/{user_id}')
+async def get_mailing_time(user_id: int):
+    return await users_service.get_mailing_time(user_id=user_id)
 
 
-@router.put('/users/deactivate/{user_id}')
-async def deactivate_user(user_id: int):
-    await users_service.deactivate_user(user_id=user_id)
-    return {"text": "User deactivated successfully"}
+@router.get('/users/language/{user_id}')
+async def get_language(user_id: int):
+    return await users_service.get_language(user_id=user_id)
 
 
-@router.put('/users/reactivate/{user_id}')
-async def reactivate_user(user_id: int):
-    await users_service.update_status(user_id=user_id, status='active')
-    return {"text": "User reactivated successfully"}
+@router.get('/users/canteen_id/{user_id}')
+async def get_canteen_id(user_id: int):
+    return await users_service.get_canteen_id(user_id=user_id)
+
 

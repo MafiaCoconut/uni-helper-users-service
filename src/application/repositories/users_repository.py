@@ -37,8 +37,14 @@ class UsersRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    async def get_canteen_id_by_user_id(user_id: int) -> User:
+    async def get_canteen_id_by_user_id(user_id: int) -> int:
         pass
+
+    @staticmethod
+    @abstractmethod
+    async def get_status_by_user_id(user_id: int) -> str:
+        pass
+
 
     @staticmethod
     @abstractmethod
