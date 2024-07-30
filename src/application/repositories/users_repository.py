@@ -63,7 +63,7 @@ class UsersRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    async def update_language(user_id: int, language: str):
+    async def update_locale(user_id: int, language: str):
         pass
 
     @staticmethod
