@@ -13,7 +13,7 @@ class UserOrm(Base):
     user_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     username: Mapped[str]
     mailing_time: Mapped[str]
-    language: Mapped[str]
+    locale: Mapped[str]
     canteen_id: Mapped[int] = mapped_column(ForeignKey("canteens.canteen_id", ondelete="CASCADE"))
     updated_at: Mapped[updated_at]
     created_at: Mapped[created_at]

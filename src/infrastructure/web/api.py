@@ -14,16 +14,16 @@ async def add_user(user: User):
 
 @router.put('/users/{user_id}')
 async def update_user(user_id: int, new_mailing_time: str = None,
-                      new_language: str = None, new_canteen_id: int = None,
+                      new_locale: str = None, new_canteen_id: int = None,
                       status: str = None):
     result = ""
     if new_mailing_time is not None:
         await users_service.update_mailing_time(user_id=user_id, mailing_time=new_mailing_time)
         result += "Mailing time updated successfully\n"
 
-    if new_language is not None:
-        await users_service.update_language(user_id=user_id, language=new_language)
-        result += "Language updated successfully\n"
+    if new_locale is not None:
+        await users_service.update_language(user_id=user_id, locale=new_locale)
+        result += "Locale updated successfully\n"
 
     if new_canteen_id is not None:
         await users_service.update_canteen_id(user_id=user_id, canteen_id=new_canteen_id)

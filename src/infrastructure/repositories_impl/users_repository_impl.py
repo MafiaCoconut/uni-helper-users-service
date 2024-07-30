@@ -134,9 +134,9 @@ class UsersRepositoryImpl(UsersRepository):
 
     @staticmethod
     @log_decorator
-    async def update_language(user_id: int, language: str):
+    async def update_locale(user_id: int, locale: str):
         async with async_session_factory() as session:
-            query = update(UserOrm).where(UserOrm.user_id == user_id).values(language=language)
+            query = update(UserOrm).where(UserOrm.user_id == user_id).values(locale=locale)
             await session.execute(query)
             await session.commit()
 
