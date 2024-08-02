@@ -30,6 +30,9 @@ class UsersService:
     async def get_canteen_id(self, user_id: int):
         return await self.users_repository.get_canteen_id_by_user_id(user_id=user_id)
 
+    async def check_existence(self, user_id: int):
+        return await self.users_repository.check_existence(user_id=user_id)
+
     async def save_many_users(self, users: list[User]):
         # self.users_validator.validate_users(users)
         await self.users_repository.save_many(users=users)
@@ -43,8 +46,8 @@ class UsersService:
     async def update_mailing_time(self, user_id: int, mailing_time: str):
         await self.users_repository.update_mailing_time(user_id=user_id, mailing_time=mailing_time)
 
-    async def update_language(self, user_id: int, language: str):
-        await self.users_repository.update_language(user_id=user_id, language=language)
+    async def update_language(self, user_id: int, locale: str):
+        await self.users_repository.update_locale(user_id=user_id, locale=locale)
 
     async def update_canteen_id(self, user_id: int, canteen_id: int):
         await self.users_repository.update_canteen_id(user_id=user_id, canteen_id=canteen_id)

@@ -1,32 +1,39 @@
 from fastapi import Depends, APIRouter
+from icecream import ic
 
+from domain.api_models import UpdateUserData
 from domain.entities.user import User
 from infrastructure.config.services_config import users_service
 router = APIRouter()
 
 
 @router.put('/user{user_id}/updateData')
-async def update_user(user_id: int, new_mailing_time: str = None,
-                      new_locale: str = None, new_canteen_id: int = None,
-                      status: str = None):
+async def update_user(user_id: int, data: UpdateUserData):
     result = ""
-    if new_mailing_time is not None:
-        await users_service.update_mailing_time(user_id=user_id, mailing_time=new_mailing_time)
-        result += "Mailing time updated successfully\n"
+    error = ""
+    ic(data.new_locale, data.new_canteen_id, data.new_mailing_time)
+    if await users_service.check_existence(user_id=user_id):
+        # result = "fdsfsdfsdfsd"
+        if data.new_mailing_time is not None:
+            await users_service.update_mailing_time(user_id=user_id, mailing_time=data.new_mailing_time)
+            result += "Mailing time updated successfully\n"
 
-    if new_locale is not None:
-        await users_service.update_language(user_id=user_id, locale=new_locale)
-        result += "Locale updated successfully\n"
+        if data.new_locale is not None:
+            await users_service.update_language(user_id=user_id, locale=data.new_locale)
+            result += "Locale updated successfully\n"
 
-    if new_canteen_id is not None:
-        await users_service.update_canteen_id(user_id=user_id, canteen_id=new_canteen_id)
-        result += "Canteen_id updated successfully\n"
+        if data.new_canteen_id is not None:
+            await users_service.update_canteen_id(user_id=user_id, canteen_id=data.new_canteen_id)
+            result += "Canteen_id updated successfully\n"
 
-    if status is not None:
-        await users_service.update_status(user_id=user_id, status=status)
-        result += "Status updated successfully\n"
+        # if data.status is not None:
+        #     await users_service.update_status(user_id=user_id, status=data.status)
+        #     result += "Status updated successfully\n"
+    else:
+        error = "UserNotExist"
+        result = "The user does not exist"
 
-    return {"text": result}
+    return {"text": result, "error": error}
 
 
 @router.get('/user{user_id}/getData')
@@ -63,8 +70,8 @@ async def reactivate_user(user_id: int):
 
 
 @router.post('/users/createUser')
-async def add_user(user: User):
-    user = User(**user.model_dump())
+async def add_user(user: dict):
+    user = User.model_validate((user['user']))
     await users_service.save_user(user=user)
     return {"text": "User added successfully"}
 
@@ -74,5 +81,9 @@ async def get_all_users():
     users = await users_service.get_all_users()
     return users
 
+
+@router.get('/user{user_id}/checkExistence')
+async def check_existence(user_id: int):
+    return await users_service.check_existence(user_id=user_id)
 
 
