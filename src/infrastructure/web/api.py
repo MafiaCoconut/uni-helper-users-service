@@ -3,11 +3,13 @@ from icecream import ic
 
 from domain.api_models import UpdateUserData
 from domain.entities.user import User
+from infrastructure.config.logs_config import log_api_decorator
 from infrastructure.config.services_config import users_service
 router = APIRouter()
 
 
 @router.put('/user{user_id}/updateData')
+@log_api_decorator
 async def update_user(user_id: int, data: UpdateUserData):
     result = ""
     error = ""
@@ -37,39 +39,46 @@ async def update_user(user_id: int, data: UpdateUserData):
 
 
 @router.get('/user{user_id}/getData')
+@log_api_decorator
 async def get_user_by_id(user_id: int):
     user = await users_service.get_user(user_id=user_id)
     return user
 
 
 @router.get('/user{user_id}/getMailingTime')
+@log_api_decorator
 async def get_mailing_time(user_id: int):
     return await users_service.get_mailing_time(user_id=user_id)
 
 
 @router.get('/user{user_id}/getLanguage')
+@log_api_decorator
 async def get_language(user_id: int):
     return await users_service.get_language(user_id=user_id)
 
 
 @router.get('/user{user_id}/getCanteenId')
+@log_api_decorator
 async def get_canteen_id(user_id: int):
     return await users_service.get_canteen_id(user_id=user_id)
 
 
 @router.put('/user{user_id}/deactivate')
+@log_api_decorator
 async def deactivate_user(user_id: int):
     await users_service.deactivate_user(user_id=user_id)
     return {"text": "User deactivated successfully"}
 
 
 @router.put('/user{user_id}/reactivate')
+@log_api_decorator
 async def reactivate_user(user_id: int):
     await users_service.update_status(user_id=user_id, status='active')
     return {"text": "User reactivated successfully"}
 
 
 @router.post('/users/createUser')
+@log_api_decorator
 async def add_user(user: dict):
     user = User.model_validate((user['user']))
     await users_service.save_user(user=user)
@@ -77,12 +86,14 @@ async def add_user(user: dict):
 
 
 @router.get('/users/getAll')
+@log_api_decorator
 async def get_all_users():
     users = await users_service.get_all_users()
     return users
 
 
 @router.get('/user{user_id}/checkExistence')
+@log_api_decorator
 async def check_existence(user_id: int):
     return await users_service.check_existence(user_id=user_id)
 
