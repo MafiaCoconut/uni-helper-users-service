@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 COPY /src /src
 WORKDIR /src
 
-CMD ["uvicorn", "main:app", "--reload", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--reload", "--port", "8003"]
