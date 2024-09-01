@@ -94,7 +94,7 @@ async def reactivate_user(
         user_id: int,
         response: Response, users_service=Depends(get_users_service)
 ):
-    await users_service.update_status(user_id=user_id, status='active')
+    await users_service.reactivate_user(user_id=user_id)
     return {"text": "User reactivated successfully"}
 
 
