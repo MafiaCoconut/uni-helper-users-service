@@ -68,6 +68,10 @@ class UsersRepository(ABC):
     async def deactivate_user(self, user_id: int):
         pass
 
+    @abstractmethod
+    async def reactivate_user(self, user_id: int):
+        pass
+
 
 
 

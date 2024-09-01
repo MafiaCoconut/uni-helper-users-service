@@ -7,10 +7,6 @@ from infrastructure.config.s3_config import s3client
 from infrastructure.config.scheduler_interfaces_config import get_scheduler_interface
 
 
-users_service = UsersService(
-    users_repository=get_users_repository(),
-)
-
 s3_service = S3Service(
     s3client=s3client
 )
@@ -23,3 +19,7 @@ def get_scheduler_service() -> SchedulerService:
     )
 
 
+def get_users_service() -> UsersService:
+    return UsersService(
+        users_repository=get_users_repository(),
+    )

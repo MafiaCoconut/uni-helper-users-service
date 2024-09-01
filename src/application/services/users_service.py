@@ -58,6 +58,10 @@ class UsersService:
     async def deactivate_user(self, user_id: int):
         await self.users_repository.deactivate_user(user_id=user_id)
 
+    async def reactivate_user(self, user_id: int):
+        await self.users_repository.reactivate_user(user_id=user_id)
+
+
 
 
 
