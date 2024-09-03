@@ -7,5 +7,4 @@ from infrastructure.repositories_impl.users_repository_impl import UsersReposito
 def get_users_repository() -> UsersRepositoryImpl:
     session = AsyncSession(bind=async_engine, expire_on_commit=False)
     return UsersRepositoryImpl(session=session)
-# users_repository = UsersRepositoryImpl()
 

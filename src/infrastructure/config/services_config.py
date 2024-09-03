@@ -1,4 +1,5 @@
 from application.services.users_service import UsersService
+from infrastructure.config.providers_config import repositories_provider
 from infrastructure.config.repositories_config import get_users_repository
 from infrastructure.config.validators_config import users_validator
 from application.services.s3_service import S3Service
@@ -21,5 +22,5 @@ def get_scheduler_service() -> SchedulerService:
 
 def get_users_service() -> UsersService:
     return UsersService(
-        users_repository=get_users_repository(),
+        repositories_provider=repositories_provider,
     )
