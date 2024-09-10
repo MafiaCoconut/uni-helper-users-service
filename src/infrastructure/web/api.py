@@ -17,7 +17,7 @@ async def update_user(
 ):
     result = ""
     error = ""
-    ic(data.new_locale, data.new_canteen_id, data.new_mailing_time)
+    # ic(data.new_locale, data.new_canteen_id, data.new_mailing_time)
     if await users_service.check_existence(user_id=user_id):
         if data.new_mailing_time is not None:
             await users_service.update_mailing_time(user_id=user_id, mailing_time=data.new_mailing_time)
